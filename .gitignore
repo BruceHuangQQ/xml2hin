@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+env/
+.env
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Generated output (rebuild with run_demo.py)
+out/
+
+# Full DBLP dump is too large for git; the sample stays tracked
+data/dblp/dblp.xml
+data/dblp/dblp.xml.gz

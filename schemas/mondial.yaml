@@ -1,0 +1,30 @@
+# MONDIAL: world geography. IDs and references are XML attributes (declared ID/IDREF
+# in mondial.dtd), and provinces/cities are nested inside countries.
+dataset: MONDIAL
+nodes:
+  country:      {tags: [country],      id: "@car_code"}
+  province:     {tags: [province],     id: "@id"}
+  city:         {tags: [city],         id: "@id"}
+  continent:    {tags: [continent],    id: "@id"}
+  organization: {tags: [organization], id: "@id"}
+  river:        {tags: [river],        id: "@id"}
+  lake:         {tags: [lake],         id: "@id"}
+  sea:          {tags: [sea],          id: "@id"}
+  mountain:     {tags: [mountain],     id: "@id"}
+  island:       {tags: [island],       id: "@id"}
+  airport:      {tags: [airport],      id: "@iatacode"}
+edges:
+  # nesting: the element sits inside its parent
+  - {name: province_of,   from: province,     to: country,  nested_in: true}
+  - {name: city_in,       from: city,         to: [province, country], nested_in: true}
+  # attribute references (IDREF / IDREFS)
+  - {name: capital,       from: country,      to: city,         ref: "@capital"}
+  - {name: member_of,     from: country,      to: organization, ref: "@memberships"}
+  - {name: headquarters,  from: organization, to: city,         ref: "@headq"}
+  - {name: river_in,      from: river,        to: country,      ref: "@country"}
+  - {name: mountain_in,   from: mountain,     to: country,      ref: "@country"}
+  - {name: airport_city,  from: airport,      to: city,         ref: "@city"}
+  # references on a child element
+  - {name: borders,       from: country,      to: country,      ref: "border/@country"}
+  - {name: on_continent,  from: country,      to: continent,    ref: "encompassed/@continent"}
+  - {name: flows_into,    from: river,        to: [river, lake, sea], ref: "to/@water"}

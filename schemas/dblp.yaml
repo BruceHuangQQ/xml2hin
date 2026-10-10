@@ -1,0 +1,16 @@
+# DBLP: bibliography. IDs are the "key" attribute; references are child elements.
+dataset: DBLP
+nodes:
+  publication:
+    # all publication kinds are ONE node type; the original tag is kept as an attribute
+    tags: [article, inproceedings, proceedings, book, incollection, phdthesis, mastersthesis]
+    id: "@key"
+    keep_tag_as: pub_type
+    attributes: [title, year, journal, booktitle, pages, ee]
+  person:
+    from_values: true      # authors have no element of their own; the name is the ID
+edges:
+  - {name: authored_by, from: publication, to: person,      ref: author}
+  - {name: edited_by,   from: publication, to: person,      ref: editor}
+  - {name: part_of,     from: publication, to: publication, ref: crossref}
+  - {name: cites,       from: publication, to: publication, ref: cite, ignore: ["..."]}
